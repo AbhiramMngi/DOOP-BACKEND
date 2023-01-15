@@ -1,0 +1,79 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model USER {
+  user_id      String    @id @default(uuid())
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  user_name    String
+  first_name   String
+  last_name    String
+  email        String
+  pw_hash      String
+  image        Bytes     @db.ByteA
+  user_blog    BLOG[]
+  user_comment COMMENT[]
+}
+
+model BLOG {
+  blog_id      String    @id @default(uuid())
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  user_blog    USER      @relation(fields: [user_id], references: [user_id])
+  user_id      String    @unique
+  title        String
+  content      Json
+  blog_comment COMMENT[]
+}
+
+model COMMENT {
+  comment_id   String   @id @default(uuid())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  blog_comment BLOG     @relation(fields: [blog_id], references: [blog_id])
+  blog_id      String
+  user_comment USER     @relation(fields: [user_id], references: [user_id])
+  user_id      String
+  content      String
+}
+
+// CREATE TABLE USER (
+//   USER_ID INTEGER,
+//   USERNAME VARCHAR,
+//   NAME VARCHAR,
+//   EMAIL VARCHAR,
+//   PW_HASH VARCHAR,
+//   IMAGE BYTEA,
+//   PRIMARY KEY (USER_ID)
+// );
+
+// CREATE TABLE BLOG (
+//   BLOG_ID INTEGER,
+//   USER_ID INTEGER,
+//   TITLE VARCHAR,
+//   BLOG_POST JSON,
+//   PRIMARY KEY (BLOG_ID),
+//   FOREIGN KEY (USER_ID) REFERENCES BLOG_SCHEMA.USER(USER_ID)
+// );
+
+// CREATE TABLE USER_BLOG_COMMENT (
+//   COMMENT_ID INTEGER,
+//   BLOG_ID INTEGER,
+//   USER_ID INTEGER,
+//   PARENT_ID INTEGER,
+//   TIMESTAMP TIMESTAMP,
+//   COMMENT_TEXT VARCHAR,
+//   PRIMARY KEY (COMMENT_ID),
+
+//   FOREIGN KEY (USER_ID) REFERENCES BLOG_SCHEMA.USER(USER_ID),
+//   FOREIGN KEY (BLOG_ID) REFERENCES BLOG_SCHEMA.BLOG(BLOG_ID)
+// );
