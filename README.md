@@ -6,4 +6,4 @@ To setup:
   
  To run:
  
-  `make run'
+  `make run`
