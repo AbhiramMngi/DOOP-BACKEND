@@ -10,7 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model USER {
+model user {
   user_id      String    @id @default(uuid())
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
@@ -20,30 +20,35 @@ model USER {
   email        String
   pw_hash      String
   image        Bytes     @db.ByteA
-  user_blog    BLOG[]
-  user_comment COMMENT[]
+  user_blog    blog[]
+  user_comment comment[]
 }
 
-model BLOG {
+model blog {
   blog_id      String    @id @default(uuid())
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
-  user_blog    USER      @relation(fields: [user_id], references: [user_id])
+  user_blog    user      @relation(fields: [user_id], references: [user_id])
   user_id      String    @unique
   title        String
   content      Json
-  blog_comment COMMENT[]
+  blog_comment comment[]
 }
 
-model COMMENT {
+model comment {
   comment_id   String   @id @default(uuid())
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-  blog_comment BLOG     @relation(fields: [blog_id], references: [blog_id])
+  blog_comment blog     @relation(fields: [blog_id], references: [blog_id])
   blog_id      String
-  user_comment USER     @relation(fields: [user_id], references: [user_id])
+  user_comment user     @relation(fields: [user_id], references: [user_id])
   user_id      String
   content      String
+}
+
+model dummy {
+  id String @id @default(uuid())
+  name String
 }
 
 // CREATE TABLE USER (
