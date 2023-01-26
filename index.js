@@ -8,16 +8,19 @@ const app = express();
 app.use(ctx.middleware);
 app.use(database.addDBToContext);
 
-app.get("/", function (req, res){
-    res.header({
-        "Content-Type": "application/json"
-    })
-    res.send({
-        Status: 200,
-        message: "Welcome to doop backend"
-    })
-})
+app.get("/", async function (req, res) {
+    const db = ctx.get("db");
+    const data = await db.blogger.findMany();
 
-http.createServer(app).listen(8000, function(){
-    console.log("server listening at 8000");
-})
+  res.header({
+    "Content-Type": "application/json",
+  });
+  res.send({
+    Status: 200,
+    message: data,
+  });
+});
+
+http.createServer(app).listen(8000, function () {
+  console.log("server listening at 8000");
+});

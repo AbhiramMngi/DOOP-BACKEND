@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "devStart": "nodemon server",
+    "dev": "nodemon index.js",
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": { 
+  "repository": {
     "type": "git",
     "url": "git+https://github.com/AbhiramMngi/DOOP-BACKEND.git"
   },
@@ -20,12 +20,12 @@
   },
   "homepage": "https://github.com/AbhiramMngi/DOOP-BACKEND#readme",
   "devDependencies": {
+    "nodemon": "^2.0.20",
     "prisma": "^4.8.1"
   },
   "dependencies": {
     "@prisma/client": "^4.8.1",
     "express": "^4.18.2",
-    "express-http-context": "^1.2.4",
-    "nodemon": "^2.0.20"
+    "express-http-context": "^1.2.4"
   }
 }

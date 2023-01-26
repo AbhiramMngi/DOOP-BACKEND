@@ -1,4 +1,3 @@
-const express = require("express");
 const ctx = require("express-http-context");
 const PrismaClient = require("@prisma/client").PrismaClient;
 

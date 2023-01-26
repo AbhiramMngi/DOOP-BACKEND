@@ -2,8 +2,8 @@
 
 To setup:
 
-  `make setup`
-  
- To run:
- 
-  `make run`
+`make setup`
+
+To run:
+
+`make run`
