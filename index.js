@@ -21,6 +21,7 @@ app.get("/", async function (req, res) {
   });
 });
 
-http.createServer(app).listen(3001, function () {
-  console.log("server listening at 3001");
+const PORT = process.env.PORT || 5000;
+http.createServer(app).listen(PORT, function () {
+  console.log(`server listening at ${PORT}`);
 });
