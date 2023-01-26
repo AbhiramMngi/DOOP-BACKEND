@@ -10,26 +10,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user {
-  user_id      String    @id @default(uuid())
+model blogger {
+  blogger_id      String    @id @default(uuid())
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
-  user_name    String
+  blogger_name    String
   first_name   String
   last_name    String
   email        String
   pw_hash      String
   image        Bytes?     @db.ByteA
-  user_blog    blog[]
-  user_comment comment[]
+  blogger_blog    blog[]
+  blogger_comment comment[]
 }
 
 model blog {
   blog_id      String    @id @default(uuid())
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
-  user_blog    user      @relation(fields: [user_id], references: [user_id])
-  user_id      String    
+  blogger_blog    blogger      @relation(fields: [blogger_id], references: [blogger_id])
+  blogger_id      String    
   title        String
   content      Json
   blog_comment comment[]
@@ -41,8 +41,8 @@ model comment {
   updatedAt    DateTime @updatedAt
   blog_comment blog     @relation(fields: [blog_id], references: [blog_id])
   blog_id      String
-  user_comment user     @relation(fields: [user_id], references: [user_id])
-  user_id      String
+  blogger_comment blogger     @relation(fields: [blogger_id], references: [blogger_id])
+  blogger_id      String
   content      String
 }
 
@@ -51,34 +51,34 @@ model dummy {
   name String
 }
 
-// CREATE TABLE USER (
-//   USER_ID INTEGER,
-//   USERNAME VARCHAR,
+// CREATE TABLE blogger (
+//   blogger_ID INTEGER,
+//   bloggerNAME VARCHAR,
 //   NAME VARCHAR,
 //   EMAIL VARCHAR,
 //   PW_HASH VARCHAR,
 //   IMAGE BYTEA,
-//   PRIMARY KEY (USER_ID)
+//   PRIMARY KEY (blogger_ID)
 // );
 
 // CREATE TABLE BLOG (
 //   BLOG_ID INTEGER,
-//   USER_ID INTEGER,
+//   blogger_ID INTEGER,
 //   TITLE VARCHAR,
 //   BLOG_POST JSON,
 //   PRIMARY KEY (BLOG_ID),
-//   FOREIGN KEY (USER_ID) REFERENCES BLOG_SCHEMA.USER(USER_ID)
+//   FOREIGN KEY (blogger_ID) REFERENCES BLOG_SCHEMA.blogger(blogger_ID)
 // );
 
-// CREATE TABLE USER_BLOG_COMMENT (
+// CREATE TABLE blogger_BLOG_COMMENT (
 //   COMMENT_ID INTEGER,
 //   BLOG_ID INTEGER,
-//   USER_ID INTEGER,
+//   blogger_ID INTEGER,
 //   PARENT_ID INTEGER,
 //   TIMESTAMP TIMESTAMP,
 //   COMMENT_TEXT VARCHAR,
 //   PRIMARY KEY (COMMENT_ID),
 
-//   FOREIGN KEY (USER_ID) REFERENCES BLOG_SCHEMA.USER(USER_ID),
+//   FOREIGN KEY (blogger_ID) REFERENCES BLOG_SCHEMA.blogger(blogger_ID),
 //   FOREIGN KEY (BLOG_ID) REFERENCES BLOG_SCHEMA.BLOG(BLOG_ID)
 // );
