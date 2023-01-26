@@ -19,7 +19,7 @@ model user {
   last_name    String
   email        String
   pw_hash      String
-  image        Bytes     @db.ByteA
+  image        Bytes?     @db.ByteA
   user_blog    blog[]
   user_comment comment[]
 }
