@@ -29,7 +29,7 @@ model blog {
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
   user_blog    user      @relation(fields: [user_id], references: [user_id])
-  user_id      String    @unique
+  user_id      String    
   title        String
   content      Json
   blog_comment comment[]
