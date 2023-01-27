@@ -2,22 +2,21 @@ const ctx = require("express-http-context");
 const express = require("express");
 const database = require("./middleware/database.middleware");
 const http = require("http");
-// const signup = require("routes/SignUp.js")
+const signup = require("./routes/SignUp.js");
 
 const app = express();
 app.use(ctx.middleware);
 app.use(database.addDBToContext);
+app.use(express.json());
+app.use("/signup", signup.router);
 
-app.get("/", async function (req, res) {
-    const db = ctx.get("db");
-    const data = await db.blogger.findMany();
-
+app.get("/", function (req, res) {
   res.header({
     "Content-Type": "application/json",
   });
+  // console.log(res)
   res.send({
-    Status: 200,
-    message: data,
+    message: "Welcome to blog doop",
   });
 });
 
