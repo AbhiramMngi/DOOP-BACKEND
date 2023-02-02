@@ -9,7 +9,7 @@ async function signUp(req, res, next) {
   console.log(req.body);
   const { email, password, firstName, lastName, bloggerName } = req.body;
 
-  const record = await db.blogger.findFirst({
+  let record = await db.blogger.findFirst({
     where: {
       email: email,
     },
@@ -19,11 +19,27 @@ async function signUp(req, res, next) {
   if (record != null) {
     res.status(200);
     res.send({
+      isError: true,
+      status: 400,
       message: "user already exists",
     });
     next();
   }
+  record = await db.blogger.findFirst({
+    where: {
+      blogger_name: bloggerName,
+    }
+  });
 
+  if (record != null) {
+    res.status(400);
+    res.send({
+      isError: true,
+      message: "User Name taken",
+      status: 400
+    })
+    return next();
+  }
   const data = db.blogger.create({
     data: {
       email: email,
