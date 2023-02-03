@@ -43,6 +43,7 @@ model comment {
   updatedAt    DateTime @updatedAt
   blog_comment blog     @relation(fields: [blog_id], references: [blog_id])
   blog_id      String
+  parent_id String?
   blogger_comment blogger     @relation(fields: [blogger_id], references: [blogger_id])
   blogger_id      String
   content      String

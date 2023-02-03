@@ -12,14 +12,12 @@ const app = express();
 
 app.use(ctx.middleware);
 app.use(database.addDBToContext);
-app.use(encryptor.addEncryptor)
+app.use(encryptor.addEncryptor);
 app.use(express.json());
 
 app.use("/signup", signup.router);
 app.use("/signin", signin.router);
 app.use("/blog", findblog.router);
-
-
 
 app.get("/", function (req, res) {
   res.header({

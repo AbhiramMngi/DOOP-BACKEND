@@ -10,7 +10,7 @@ router.post("/", async function (req, res, next) {
   res.header("Content-Type", "application/json");
 
   const { userNameorEmail, password } = req.body;
-//   console.log(userNameorEmail);
+  //   console.log(userNameorEmail);
   const record = await db.blogger.findFirst({
     where: {
       OR: [
@@ -55,7 +55,7 @@ router.post("/", async function (req, res, next) {
       blog_id: true,
       title: true,
       subtitle: true,
-      createdAt: true
+      createdAt: true,
     },
   });
   console.log(blogs);

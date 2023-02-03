@@ -45,12 +45,12 @@ async function getDefaultObject(name, i) {
 }
 
 async function getBlogger() {
-  const blogger = await TABLES['blogger'].findFirst();
+  const blogger = await TABLES["blogger"].findFirst();
   return blogger.blogger_id;
 }
 
 async function getBlog() {
-  const blog = await TABLES['blog'].findFirst();
+  const blog = await TABLES["blog"].findFirst();
   return blog.blog_id;
 }
 
@@ -77,16 +77,16 @@ const arg = process.argv.slice(1)[1];
 
 async function handleArgs(arg) {
   console.log(`${arg}`);
-  if (arg === "create"){
+  if (arg === "create") {
     console.log(`Records creating`);
-    const v = await insertRecords(); 
+    const v = await insertRecords();
     console.log(`Records created `);
   }
-  if (arg === 'delete') {
+  if (arg === "delete") {
     const v = await deleteRecords();
     console.log(`Records deleted`);
   }
   return 0;
-} 
+}
 
 handleArgs(arg);
