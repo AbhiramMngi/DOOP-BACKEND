@@ -32,6 +32,7 @@ model blog {
   blogger_blog    blogger      @relation(fields: [blogger_id], references: [blogger_id])
   blogger_id      String    
   title        String
+  subtitle    String?  
   content      Json
   blog_comment comment[]
 }

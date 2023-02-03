@@ -29,6 +29,7 @@ async function getDefaultObject(name, i) {
       return {
         blogger_id: await getBlogger(),
         title: "asjhdslsd",
+        subtitle: "dummy subtitle",
         content: {
           heading: "doid",
           main: "SDKhg",
