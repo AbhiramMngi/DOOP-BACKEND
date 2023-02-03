@@ -9,7 +9,7 @@ const TABLES = {
 };
 
 async function deleteRecords() {
-  for (let i of TABLE_NAMES) {
+  for (let i of TABLE_NAMES.reverse()) {
     const v = await TABLES[i].deleteMany();
     console.log("delete records in ", i);
   }
@@ -59,7 +59,6 @@ async function createRecords(name) {
   if (records.length > 0) return;
   for (let i = 0; i < 10; i++) {
     const data = await getDefaultObject(name, i);
-    console.log(data);
     const t = await table.create({
       data: data,
     });
