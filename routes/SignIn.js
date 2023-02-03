@@ -46,7 +46,7 @@ router.post("/", async function (req, res, next) {
     });
     return next();
   }
-  const blogs = db.blog.findMany({
+  const blogs = await db.blog.findMany({
     where: {
       blogger_id: record.blogger_id,
     },
@@ -56,7 +56,7 @@ router.post("/", async function (req, res, next) {
       subtitle: true,
     },
   });
-
+  console.log(record);
   res.status(200);
   res.send({
     status: 200,
