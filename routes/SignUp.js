@@ -7,7 +7,7 @@ const secret = process.env.SHA_SECRET_KEY;
 
 async function signUp(req, res, next) {
   const db = ctx.get("db");
-  const enc = ctx.get('enc');
+  const enc = ctx.get("enc");
 
   res.header("Content-Type: application/json");
 
@@ -32,7 +32,7 @@ async function signUp(req, res, next) {
   record = await db.blogger.findFirst({
     where: {
       blogger_name: bloggerName,
-    }
+    },
   });
 
   if (record != null) {
@@ -40,8 +40,8 @@ async function signUp(req, res, next) {
     res.send({
       isError: true,
       message: "User Name taken",
-      status: 400
-    })
+      status: 400,
+    });
     return next();
   }
   const data = db.blogger.create({
@@ -50,7 +50,7 @@ async function signUp(req, res, next) {
       first_name: firstName,
       last_name: lastName,
       pw_hash: hasher(password, enc, secret),
-      blogger_name: bloggerName
+      blogger_name: bloggerName,
     },
   });
 
