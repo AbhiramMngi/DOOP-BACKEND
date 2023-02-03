@@ -55,6 +55,7 @@ router.post("/", async function (req, res, next) {
       blog_id: true,
       title: true,
       subtitle: true,
+      createdAt: true
     },
   });
   console.log(blogs);
