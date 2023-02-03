@@ -52,11 +52,12 @@ router.post("/", async function (req, res, next) {
     },
     take: 5,
     select: {
+      blog_id: true,
       title: true,
       subtitle: true,
     },
   });
-  console.log(record);
+  console.log(blogs);
   res.status(200);
   res.send({
     status: 200,
