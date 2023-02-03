@@ -1,12 +1,18 @@
 const express = require("express");
 const router = express.Router();
 const ctx = require("express-http-context");
+const hasher = require("../utils/encryptor").hasher;
 router.post("/", signUp);
+const secret = process.env.SHA_SECRET_KEY;
 
 async function signUp(req, res, next) {
   const db = ctx.get("db");
+  const enc = ctx.get('enc');
+
   res.header("Content-Type: application/json");
+
   console.log(req.body);
+
   const { email, password, firstName, lastName, bloggerName } = req.body;
 
   let record = await db.blogger.findFirst({
@@ -14,8 +20,6 @@ async function signUp(req, res, next) {
       email: email,
     },
   });
-  console.log("record ", record);
-
   if (record != null) {
     res.status(200);
     res.send({
@@ -23,7 +27,7 @@ async function signUp(req, res, next) {
       status: 400,
       message: "user already exists",
     });
-    next();
+    return next();
   }
   record = await db.blogger.findFirst({
     where: {
@@ -45,7 +49,7 @@ async function signUp(req, res, next) {
       email: email,
       first_name: firstName,
       last_name: lastName,
-      pw_hash: password,
+      pw_hash: hasher(password, enc, secret),
       blogger_name: bloggerName
     },
   });
@@ -58,7 +62,7 @@ async function signUp(req, res, next) {
         message: "user signed up",
         status: 200,
       });
-      next();
+      return next();
     })
     .catch((err) => {
       res.status(500);
@@ -67,7 +71,7 @@ async function signUp(req, res, next) {
         message: err,
         status: 500,
       });
-      next();
+      return next();
     });
 }
 

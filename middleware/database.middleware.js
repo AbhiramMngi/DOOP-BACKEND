@@ -5,7 +5,7 @@ const addDBToContext = (req, res, next) => {
     if (!ctx.get('db')) {
         ctx.set('db', new PrismaClient());
     }
-    next();
+    return next();
 }
 
 module.exports = {
