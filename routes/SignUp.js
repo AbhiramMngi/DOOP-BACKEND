@@ -11,7 +11,7 @@ async function signUp(req, res, next) {
 
   res.header("Content-Type: application/json");
 
-  console.log(req.body);
+  // console.log(req.body);
 
   const { email, password, firstName, lastName, bloggerName } = req.body;
 

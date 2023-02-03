@@ -10,7 +10,7 @@ router.post("/", async function (req, res, next) {
   res.header("Content-Type", "application/json");
 
   const { userNameorEmail, password } = req.body;
-  console.log(userNameorEmail);
+//   console.log(userNameorEmail);
   const record = await db.blogger.findFirst({
     where: {
       OR: [
@@ -37,7 +37,7 @@ router.post("/", async function (req, res, next) {
     return next();
   }
   if (hasher(password, enc, secret) !== record.pw_hash) {
-    console.log(hasher(password, enc, secret) + " is not " + record.pw_hash);
+    // console.log(hasher(password, enc, secret) + " is not " + record.pw_hash);
     res.status(401);
     res.send({
       status: 401,
