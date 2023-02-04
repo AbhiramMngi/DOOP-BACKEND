@@ -2,11 +2,11 @@ const express = require("express");
 const router = express.Router();
 const ctx = require("express-http-context");
 const hasher = require("../utils/encryptor").hasher;
+const db = require("../database/database").db;
 router.post("/", signUp);
 const secret = process.env.SHA_SECRET_KEY;
 
 async function signUp(req, res, next) {
-  const db = ctx.get("db");
   const enc = ctx.get("enc");
 
   res.header("Content-Type: application/json");

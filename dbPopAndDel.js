@@ -39,6 +39,7 @@ async function getDefaultObject(name, i) {
       return {
         blogger_id: await getBlogger(),
         blog_id: await getBlog(),
+        parent_id: null,
         content: "dfhksdvdfhjvgk",
       };
   }

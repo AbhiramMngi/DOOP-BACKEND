@@ -1,8 +1,8 @@
 const ctx = require("express-http-context");
 const router = require("express").Router();
+const db = require("../database/database").db;
 
 router.get("/", async (req, res, next) => {
-  const db = ctx.get("db");
   const blogId = req.query.blog_id;
 
   const record = await db.blog.findFirst({
