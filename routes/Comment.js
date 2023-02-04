@@ -1,7 +1,7 @@
 const db = require('../database/database').db;
 const router = require("express").Router();
 
-router.post('/', async function(req, res, next) {
+router.post('/add', async function(req, res, next) {
   res.header('Content-Type', 'application/json');
   const { blogId, bloggerId, parentId, content } = req.body;
   const blogData = await db.blog.findFirst({
