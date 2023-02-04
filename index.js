@@ -7,6 +7,7 @@ const http = require("http");
 const signup = require("./routes/SignUp.js");
 const signin = require("./routes/SignIn.js");
 const findblog = require("./routes/FindBlog.js");
+const editblog = require("./routes/EditBlog.js");
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use("/signup", signup.router);
 app.use("/signin", signin.router);
 app.use("/blog", findblog.router);
+app.use("/editor", editblog.router); 
 
 app.get("/", function (req, res) {
   res.header({
