@@ -15,6 +15,7 @@ async function publishBlog(req,res,next){
             blogger_id:blogger_id
         }
     });
+    
     if(record == null){
         res.status(404);
         res.send({
