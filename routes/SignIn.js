@@ -3,9 +3,9 @@ const ctx = require("express-http-context");
 const router = express.Router();
 const hasher = require("../utils/encryptor").hasher;
 const secret = process.env.SHA_SECRET_KEY;
+const db  = require("../database/database").db;
 
 router.post("/", async function (req, res, next) {
-  const db = ctx.get("db");
   const enc = ctx.get("enc");
   res.header("Content-Type", "application/json");
 
@@ -58,13 +58,13 @@ router.post("/", async function (req, res, next) {
       createdAt: true,
     },
   });
-  console.log(blogs);
   res.status(200);
   res.send({
     status: 200,
     isError: true,
     message: "user successfully returned",
     data: {
+      blogger_id: record.blogger_id,
       user_name: record.blogger_name,
       first_name: record.first_name,
       last_name: record.last_name,

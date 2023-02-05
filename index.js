@@ -1,6 +1,5 @@
 const ctx = require("express-http-context");
 const express = require("express");
-const database = require("./middleware/database.middleware");
 const encryptor = require("./middleware/encryptor.middleware");
 const http = require("http");
 
@@ -12,7 +11,6 @@ const editblog = require("./routes/EditBlog.js");
 const app = express();
 
 app.use(ctx.middleware);
-app.use(database.addDBToContext);
 app.use(encryptor.addEncryptor);
 app.use(express.json());
 
