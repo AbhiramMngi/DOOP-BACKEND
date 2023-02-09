@@ -121,6 +121,7 @@ async function deleteBlog(req,res,next){
             blog_id:blog_id            
         }
     });
+
     if(record == null){
         res.status(404);
         res.send({
@@ -129,35 +130,70 @@ async function deleteBlog(req,res,next){
             status: 404
         });
         return next();
-    } 
-
-    const data =  db.blog.delete({
+    }
+    const blog = await db.blog.findFirst({
         where: {
-          blog_id: blog_id          
-        },
-      });
+            blog_id: blog_id
+        }
+    }) 
 
-    data
-        .then((data)=>{
-            res.status(200);
-            res.send({
-                isError: false,
-                message: "blog deleted",
-                status: 200
-            });
-            return next();
-        })
-        .catch ((err)=>{
-            console.log(err)
-            res.status(500);
-            res.send({
-                isError: true,
-                message: err,
-                status: 500,
-            });
-            return next();
+    if (blog == null){
+        res.status(404);
+        res.send({
+            message: 'Could not find blog',
+            isError: true,
+            status: 404  
         });
+        return next();
+    }
+    try{
+        console.log("hello")
+        const data = await db.comment.deleteMany({
+            
+        where: {
+            blog_id: blog_id
+        }
+    });
+    }
+    catch(err){
+        console.error(err);
+        res.status(404);
+        res.send({
+            message:'Error deleting comments',
+            isError: true,
+            status: 404
+        });
+        return next();
+    }
     
+    try {
+        console.log("hello")
+        console.log(blog_id, blogger_id);
+        const data = await db.blog.delete({
+            where: {
+              blog_id: blog_id,
+            //   blogger_id: blogger_id,
+            },
+          });
+    }
+    catch(err) {
+        console.error(err);
+        res.status(404);
+        res.send({
+            message: 'Could not delete blog',
+            isError: true,
+            status: 404  
+        });
+        return next();
+    }
+      
+    res.status(200);
+    res.send({
+        message: 'Blog deleted successfully',
+        isError: false,
+        status: 200
+    });
+    return next();
 }
     
     
