@@ -5,8 +5,8 @@ const http = require("http");
 
 const signup = require("./routes/SignUp.js");
 const signin = require("./routes/SignIn.js");
-const findBlog = require("./routes/FindBlog.js");
-const Comment = require("./routes/Comment.js");
+const findblog = require("./routes/FindBlog.js");
+const editblog = require("./routes/EditBlog.js");
 
 const app = express();
 
@@ -16,8 +16,8 @@ app.use(express.json());
 
 app.use("/signup", signup.router);
 app.use("/signin", signin.router);
-app.use("/blog", findBlog.router);
-app.use("/comment", Comment.router);
+app.use("/blog", findblog.router);
+app.use("/editor", editblog.router); 
 
 app.get("/", function (req, res) {
   res.header({
